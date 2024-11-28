@@ -16,4 +16,8 @@ public class BankTransactionsService {
         transactions.add(transaction);
         return transaction;
     }
+
+    public List<Transaction> findAllTransactions() {
+        return transactions;
+    }
 }
