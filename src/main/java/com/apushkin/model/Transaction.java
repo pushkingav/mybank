@@ -12,12 +12,14 @@ public class Transaction {
     @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private Instant timestamp;
     private String reference;
+    private String slogan;
 
-    public Transaction(String id, int amount, Instant timestamp, String reference) {
+    public Transaction(String id, int amount, Instant timestamp, String reference, String slogan) {
         this.id = id;
         this.amount = amount;
         this.timestamp = timestamp;
         this.reference = reference;
+        this.slogan = slogan;
     }
 
     public Transaction() {
@@ -53,6 +55,14 @@ public class Transaction {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
     @Override

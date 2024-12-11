@@ -10,7 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class ApplicationLauncher {
     public static void main(String[] args) throws LifecycleException {
-        AnnotationConfigApplicationContext springCtx = new AnnotationConfigApplicationContext(BankAppConfiguration.class);
+        AnnotationConfigApplicationContext springCtx
+                = new AnnotationConfigApplicationContext(BankAppConfiguration.class);
 
         Tomcat tomcat = new Tomcat();
         int port = 8080;
