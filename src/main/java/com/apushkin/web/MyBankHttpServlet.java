@@ -1,6 +1,5 @@
 package com.apushkin.web;
 
-import com.apushkin.context.Application;
 import com.apushkin.model.Transaction;
 import com.apushkin.service.BankTransactionsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,13 +7,20 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
 public class MyBankHttpServlet extends HttpServlet {
-    private final BankTransactionsService transactionsService = Application.transactionsService;
-    private final ObjectMapper objectMapper = Application.objectMapper;
+    private final BankTransactionsService transactionsService;
+    private final ObjectMapper objectMapper;
+
+    public MyBankHttpServlet(BankTransactionsService transactionsService, ObjectMapper objectMapper) {
+        this.transactionsService = transactionsService;
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
