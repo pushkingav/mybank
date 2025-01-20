@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan(basePackages = "com.apushkin")
 @PropertySource("classpath:/application.properties")
+@EnableWebMvc
 public class BankAppConfiguration {
     @Bean
     public ObjectMapper objectMapper() {

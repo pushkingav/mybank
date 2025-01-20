@@ -1,18 +1,17 @@
 package com.apushkin;
 
 import com.apushkin.context.BankAppConfiguration;
-import com.apushkin.web.MyBankHttpServlet;
+import jakarta.servlet.ServletContext;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 public class ApplicationLauncher {
     public static void main(String[] args) throws LifecycleException {
-        AnnotationConfigApplicationContext springCtx
-                = new AnnotationConfigApplicationContext(BankAppConfiguration.class);
-
         Tomcat tomcat = new Tomcat();
         int port = 8080;
 
@@ -23,14 +22,25 @@ public class ApplicationLauncher {
         tomcat.setPort(port == -1 ? 8080 : port);
         tomcat.getConnector();
 
-        Context context = tomcat.addContext("", null);
-        MyBankHttpServlet bankHttpServlet = springCtx.getBean(MyBankHttpServlet.class);
+        Context tomcatCtx = tomcat.addContext("", null);
+        WebApplicationContext webApplicationContext = createWebApplicationContext(tomcatCtx.getServletContext());
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(webApplicationContext);
         Wrapper servlet = Tomcat
-                .addServlet(context, "MyBankHttpServlet", bankHttpServlet);
+                .addServlet(tomcatCtx, "dispatcherServlet", dispatcherServlet);
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/*");
 
         tomcat.start();
+    }
+
+    public static WebApplicationContext createWebApplicationContext(ServletContext servletContext) {
+        AnnotationConfigWebApplicationContext springCtx
+                = new AnnotationConfigWebApplicationContext();
+        springCtx.register(BankAppConfiguration.class);
+        springCtx.setServletContext(servletContext);
+        springCtx.refresh();
+        springCtx.registerShutdownHook();
+        return springCtx;
     }
 
     static int convertStringToInt(String port) {
