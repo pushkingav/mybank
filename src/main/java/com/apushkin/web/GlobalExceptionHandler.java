@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     }
 
     public static List<ErrorObject> parseError(String error) {
-        String regex = "Field error in object 'transaction' on field '(.*)': rejected value \\[(.*?)\\];";
+        String regex = "Field error in object 'transaction' on field '(.*?)': rejected value \\[(.*?)\\];";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(error);
         List<ErrorObject> errors = new ArrayList<>();
