@@ -1,6 +1,10 @@
 package com.apushkin.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -8,10 +12,19 @@ import java.util.StringJoiner;
 
 public class Transaction {
     private String id;
+
+    @JsonProperty
+    @Min(value = 0)
+    @Max(value = 100)
     private int amount;
+
     @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private Instant timestamp;
+
+    @JsonProperty
+    @NotBlank
     private String reference;
+
     private String slogan;
 
     public Transaction(String id, int amount, Instant timestamp, String reference, String slogan) {
