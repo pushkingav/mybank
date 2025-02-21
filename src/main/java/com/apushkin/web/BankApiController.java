@@ -21,12 +21,6 @@ public class BankApiController {
         this.bankTransactionsService = bankTransactionsService;
     }
 
-    @GetMapping(value = "/")
-    @ResponseBody
-    public String index() {
-        return "Hello from Bank API";
-    }
-
     @GetMapping(value = "/transactions")
     @ResponseBody
     public List<Transaction> getTransactions() {

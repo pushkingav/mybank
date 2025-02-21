@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+</head>
+<body>
+<h1>Transactions</h1>
+<p>Hello
+<span th:text="${userId}" th:remove="tag">[Username]</span>
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">
+        <td th:text="${transaction.id}">1</td>
+        <td th:text="${transaction.timestamp}">01-01-2021</td>
+        <td th:text="${transaction.amount}">100.00</td>
+        <td th:text="${transaction.getSlogan()}">Payment received</td>
+    </tr>
+    </tbody>
+</table>
+
+<p>Your very first Thymleaf template.</p>
+</body>
+</html>
