@@ -27,7 +27,15 @@
     </tr>
     </tbody>
 </table>
+<H4>New Transaction</H4>
+<form th:action="@{/transactions/new}" th:object="${newTransaction}" method="post">
+    <p>User Id: <input type="text" th:field="*{receivingUserId}"/></p>
+    <p style="background-color:red" th:if="${#fields.hasErrors('receivingUserId')}" th:errors="*{receivingUserId}"></p>
 
-<p>Your very first Thymleaf template.</p>
+    <p>Amount: <input type="number" th:field="*{amount}"/></p>
+    <p style="background-color:red" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></p>
+    <p>Reference: <input type="text" th:field="*{reference}"/></p>
+    <p><input type="submit" value="Create"/></p>
+</form>
 </body>
 </html>
